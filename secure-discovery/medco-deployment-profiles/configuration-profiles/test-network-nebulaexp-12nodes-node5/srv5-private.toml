@@ -1,0 +1,13 @@
+# This file contains your private key.
+# Do not give it away lightly!
+Suite = "Ed25519"
+Public = "71ab26af4f5401e0937d44a6bbdbe738a9bf201d1b7dcecacc5248cba614af29"
+Private = "f50840f2e2d9e08e1a9ee7820e4abc49ae651dbf41b04a2eaaae60bc5bbbb206"
+Address = "tls://iccluster037.iccluster.epfl.ch:2000"
+ListenAddress = ""
+Description = "test-network-nebulaexp-12nodes-node5_medco_unlynx_server"
+URL = ""
+WebSocketTLSCertificate = ""
+WebSocketTLSCertificateKey = ""
+
+[Services]

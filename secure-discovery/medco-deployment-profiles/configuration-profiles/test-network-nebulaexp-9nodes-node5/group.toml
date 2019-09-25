@@ -1,0 +1,54 @@
+[[servers]]
+  Address = "tls://iccluster096.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "b46f755195b594c6fd056036f276b00197da04801c01f32fb055f6abf606a2b1"
+  Description = "test-network-nebulaexp-9nodes-node0_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster097.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "071e379405706e0cab11c4ad2509180f36859b8cfdc88c3cf68882fe266571ea"
+  Description = "test-network-nebulaexp-9nodes-node1_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster098.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "a1e9952f05b47c6fe3bb43364619e5d8e95fa81dc0218ae3fe599be99e157d6f"
+  Description = "test-network-nebulaexp-9nodes-node2_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster029.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "38bfba9971ac5053cea7a4c65a30479b75286515b3c315fe9194488474281c6f"
+  Description = "test-network-nebulaexp-9nodes-node3_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster033.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "03c0c3911236fe4dfd6e224cf5dd21acac35c26e31baed64f4cb707595434432"
+  Description = "test-network-nebulaexp-9nodes-node4_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster037.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "efa422a06bfd7794ad355b33f66a4e6cf45b25fd1584788a23d654802a48993d"
+  Description = "test-network-nebulaexp-9nodes-node5_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster129.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "49aec6fe1771334dddaae6244896da620079075e32427984972e8703a247dffe"
+  Description = "test-network-nebulaexp-9nodes-node6_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster054.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "60b25124b0ed1f6f31830ca98e4ff6aa65f7d2dbb36b7d588dfba21f2aa93390"
+  Description = "test-network-nebulaexp-9nodes-node7_medco_unlynx_server"
+  [servers.Services]
+[[servers]]
+  Address = "tls://iccluster059.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "a0e0f65554734a3a3f288fe551d9a0e9a2aa8508bc78277b5333b6169efc2862"
+  Description = "test-network-nebulaexp-9nodes-node8_medco_unlynx_server"
+  [servers.Services]

@@ -1,0 +1,6 @@
+[[servers]]
+  Address = "tls://iccluster037.iccluster.epfl.ch:2000"
+  Suite = "Ed25519"
+  Public = "71ab26af4f5401e0937d44a6bbdbe738a9bf201d1b7dcecacc5248cba614af29"
+  Description = "test-network-nebulaexp-12nodes-node5_medco_unlynx_server"
+  [servers.Services]

@@ -1,0 +1,194 @@
+version: '2.4'
+services:
+  i2b2:
+    image: medco/i2b2:${I2B2_VERSION:-MedCo-v0.2.0}
+    build:
+      context: ../docker-images/i2b2
+    environment:
+      - I2B2_DB_HOST=postgresql
+      - I2B2_DB_PORT=5432
+      - I2B2_DB_USER=i2b2
+      - I2B2_DB_PW=i2b2
+      - I2B2_DB_NAME=i2b2medco
+      - WILDFLY_ADMIN_PASSWORD=admin
+      - I2B2_DOMAIN_NAME=i2b2medco
+      - I2B2_SERVICE_PASSWORD=pFjy3EjDVwLfT2rB9xkK
+      - DEFAULT_USER_PASSWORD=demouser
+      - AXIS2_LOGLEVEL=INFO
+
+  medco-unlynx:
+    image: medco/medco-unlynx:${MEDCO_UNLYNX_VERSION:-v0.2.0}
+    ports:
+    - "2000"
+    - "2001"
+    environment:
+    - NODE_IDX=0
+    - UNLYNX_DEBUG_LEVEL=1
+    volumes:
+    - ../configuration-profiles/dev-local-3nodes:/medco-configuration
+
+  nginx:
+    image: medco/nginx:${NGINX_VERSION:-MedCo-v0.2.0}
+    build:
+      context: ../docker-images/web
+      dockerfile: nginx.Dockerfile
+    ports:
+      - "80"
+      - "443"
+    environment:
+      - HTTP_SCHEME=http
+      - ALL_TIMEOUTS_SECONDS=600
+    volumes:
+      - ../docker-images/web/www-data:/www-data
+      - ../docker-images/web/nginx-conf.d:/etc/nginx/conf.d
+      - ../configuration-profiles/dev-local-3nodes/group.toml:/medco-configuration/group.toml
+
+  php-fpm:
+    image: medco/php-fpm:${PHP_FPM_VERSION:-MedCo-v0.2.0}
+    build:
+      context: ../docker-images/web
+      dockerfile: php-fpm.Dockerfile
+    environment:
+    - I2B2_DB_HOST=postgresql
+    - I2B2_DB_PORT=5432
+    - I2B2_DB_USER=i2b2
+    - I2B2_DB_PW=i2b2
+    - I2B2_DB_NAME=i2b2medco
+    - I2B2_DOMAIN_NAME=i2b2medco
+    - I2B2_URL=http://i2b2:8080/i2b2/services
+    - CORS_ALLOW_ORIGIN=http://localhost:4200
+    volumes:
+    - ../docker-images/web/www-data:/www-data
+
+  postgresql:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_PASSWORD=postgres
+    ports:
+    - "5432"
+    volumes:
+    - ../docker-images/postgresql/initdb-data:/docker-entrypoint-initdb.d
+
+  pg-admin:
+    image: medco/pgadmin4:${PGADMIN_VERSION:-MedCo-v0.2.0}
+    build:
+      context: ../docker-images/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin
+      - PGADMIN_DEFAULT_PASSWORD=admin
+
+  keycloak:
+    image: medco/keycloak:${KEYCLOAK_VERSION:-MedCo-v0.2.0}
+    build:
+      context: ../docker-images/keycloak
+    environment:
+      - KEYCLOAK_USER=keycloak
+      - KEYCLOAK_PASSWORD=keycloak
+      - DB_VENDOR=postgres
+      - DB_ADDR=postgresql
+      - DB_PORT=5432
+      - DB_DATABASE=keycloak
+      - DB_USER=keycloak
+      - DB_PASSWORD=keycloak
+
+  glowing-bear-medco:
+    image: medco/glowing-bear-medco:${GLOWING_BEAR_MEDCO_VERSION:-v0.2.0}
+    ports:
+      - "80"
+    environment:
+      - GB_API_URL=http://localhost/pic-sure-api-2/PICSURE
+      - GB_URL=http://localhost:82
+      - GB_OIDC_URL=http://localhost/auth/realms/master/protocol/openid-connect
+      - GB_OIDC_CLIENT_ID=medco
+      - GB_COTHORITY_KEY_URL=http://localhost/cothority-key.pub.toml
+      - GB_GENOMIC_ANNOTATIONS_URL=http://localhost/genomicAnnotations
+      - GB_MEDCO_RESULTS_RANDOMIZATION=0
+      - GB_FOOTER_TEXT=
+      - MEDCO_NETWORK_NAME=testnetwork
+      - MEDCO_NODES_NAME=a,b,c
+
+  picsure:
+    image: medco/picsure:${PICSURE_VERSION:-MedCo-v0.2.0}
+    build:
+      context: ../docker-images/picsure
+    environment:
+      - PICSURE2_PGDB_ADDRESS=postgresql
+      - PICSURE2_PGDB_PORT=5432
+      - PICSURE2_PGDB_DB=picsure
+      - PICSURE2_PGDB_USER=picsure
+      - PICSURE2_PGDB_PW=picsure
+      - VERIFY_USER_METHOD=local_jwks
+      - PICSURE2_USER_ID_CLAIM=preferred_username
+      - PICSURE2_CLIENT_SECRET=none
+      - PICSURE2_JWKS_URL=http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs
+      - PICSURE2_CLIENT_ID=medco
+      - MEDCO_NETWORK_NAME=testnetwork
+      - MEDCO_NODES_NAME=a,b,c
+      - MEDCO_NODES_CONNECTOR_URL=http://medco-connector-srv0:1999/medco-connector/picsure2,http://medco-connector-srv1:1999/medco-connector/picsure2,http://medco-connector-srv2:1999/medco-connector/picsure2
+      - HTTP_CLIENT_TIMEOUT_SECONDS=600
+
+  medco-connector:
+    image: medco/medco-connector:${MEDCO_CONNECTOR_VERSION:-v0.2.0}
+    ports:
+      - "1999"
+    environment:
+      - SERVER_HTTP_WRITE_TIMEOUT_SECONDS=600
+      - I2B2_HIVE_URL=http://i2b2:8080/i2b2/services
+      - I2B2_LOGIN_DOMAIN=i2b2medco
+      - I2B2_LOGIN_PROJECT=MedCo
+      - I2B2_LOGIN_USER=medcouser
+      - I2B2_LOGIN_PASSWORD=demouser
+      - I2B2_WAIT_TIME_SECONDS=450
+      - LOG_LEVEL=3
+      - UNLYNX_GROUP_FILE_PATH=/medco-configuration/group.toml
+      - UNLYNX_GROUP_FILE_IDX=0
+      - UNLYNX_TIMEOUT_SECONDS=150
+      - JWKS_URL=http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs
+      - OIDC_JWT_ISSUER=http://localhost/auth/realms/master
+      - OIDC_CLIENT_ID=medco
+      - OIDC_JWT_USER_ID_CLAIM=preferred_username
+      - MEDCO_OBFUSCATION_MIN=5
+    volumes:
+      - ../configuration-profiles/dev-local-3nodes:/medco-configuration
+
+  medco-cli-client:
+    image: medco/medco-cli-client:${MEDCO_CONNECTOR_VERSION:-v0.2.0}
+    environment:
+      - LOG_LEVEL=3
+      - UNLYNX_GROUP_FILE_PATH=/medco-configuration/group.toml
+      - UNLYNX_GROUP_FILE_IDX=0
+      - OIDC_CLIENT_ID=medco
+      - CLIENT_QUERY_TIMEOUT_SECONDS=660
+      - PICSURE2_API_HOST=localhost
+      - PICSURE2_API_BASE_PATH=/pic-sure-api-2/PICSURE
+      - PICSURE2_API_SCHEME=http
+      - PICSURE2_RESOURCES=MEDCO_testnetwork_0_a,MEDCO_testnetwork_1_b,MEDCO_testnetwork_2_c
+      - OIDC_REQ_TOKEN_URL=http://localhost/auth/realms/master/protocol/openid-connect/token
+    volumes:
+      - ../configuration-profiles/dev-local-3nodes:/medco-configuration
+    network_mode: host
+    command: --user keycloak --password keycloak --disableTLSCheck q patient_list 1 AND 2 OR 3
+
+  medco-loader:
+    image: medco/medco-loader:${MEDCO_LOADER_VERSION:-v0.2.0}
+    environment:
+      - LOG_LEVEL=3
+      - UNLYNX_GROUP_FILE_PATH=/medco-configuration/group.toml
+      - UNLYNX_GROUP_FILE_IDX=0
+      - DB_HOST=localhost
+      - DB_PORT=5432
+      - DB_NAME=i2b2medcosrv0
+      - DB_USER=i2b2
+      - DB_PASSWORD=i2b2
+      - PG-DB-INFOS-TODO+PUT-THOSE-ALL-IN-DOCKERFILE
+    volumes:
+      - ../resources/data:/datasets
+      - ../configuration-profiles/dev-local-3nodes:/medco-configuration
+    networks:
+      - dev-local-3nodes_medco-network TODO
+      - dev-local-3nodes_medco-srv0 TODO (+network mode host of cli client)
+    command: >-
+      v0
+      --ont_clinical /datasets/genomic/tcga_cbio/clinical_data.csv --sen /datasets/genomic/sensitive.txt
+      --ont_genomic /datasets/genomic/tcga_cbio/videodemo_mutation_data.csv --clinical /datasets/genomic/tcga_cbio/clinical_data.csv
+      --genomic /datasets/genomic/tcga_cbio/videodemo_mutation_data.csv --output /datasets/

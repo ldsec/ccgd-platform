@@ -1,0 +1,37 @@
+version: '2.4'
+services:
+  i2b2:
+    extends:
+      file: ../docker-compose-definitions.yml
+      service: i2b2
+    environment:
+      - NODE_IDX=${MEDCO_NODE_IDX}
+      - WILDFLY_ADMIN_PASSWORD=${I2B2_WILDFLY_PASSWORD}
+      - I2B2_SERVICE_PASSWORD=${I2B2_SERVICE_PASSWORD}
+      - DEFAULT_USER_PASSWORD=${I2B2_USER_PASSWORD}
+
+  medco-unlynx:
+    extends:
+      file: ../docker-compose-definitions.yml
+      service: medco-unlynx
+    ports:
+      - "2000:2000"
+      - "2001:2001"
+    environment:
+      - NODE_IDX=${MEDCO_NODE_IDX}
+    volumes:
+      - ../../configuration-profiles/${MEDCO_PROFILE_NAME}:/medco-configuration
+
+  medco-connector:
+    extends:
+      file: ../docker-compose-definitions.yml
+      service: medco-connector
+    environment:
+      - UNLYNX_GROUP_FILE_IDX=${MEDCO_NODE_IDX}
+      - JWKS_URL=${KEYCLOAK_REALM_URL}/protocol/openid-connect/certs
+      - OIDC_JWT_ISSUER=${KEYCLOAK_REALM_URL}
+      - OIDC_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
+      - OIDC_JWT_USER_ID_CLAIM=${KEYCLOAK_USER_CLAIM}
+      - I2B2_LOGIN_PASSWORD=${I2B2_USER_PASSWORD}
+    volumes:
+      - ../../configuration-profiles/${MEDCO_PROFILE_NAME}:/medco-configuration

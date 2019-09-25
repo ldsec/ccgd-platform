@@ -1,0 +1,40 @@
+version: '2.4'
+services:
+  nginx:
+    extends:
+      file: ../docker-compose-definitions.yml
+      service: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - HTTP_SCHEME=https
+    volumes:
+      - ../../configuration-profiles/${MEDCO_PROFILE_NAME}/group.toml:/medco-configuration/group.toml
+      - ../../configuration-profiles/${MEDCO_PROFILE_NAME}/certificate.crt:/medco-configuration/certificate.crt
+      - ../../configuration-profiles/${MEDCO_PROFILE_NAME}/certificate.key:/medco-configuration/certificate.key
+
+  php-fpm:
+    extends:
+      file: ../docker-compose-definitions.yml
+      service: php-fpm
+    environment:
+      - CORS_ALLOW_ORIGIN=${MEDCO_NODE_URL}
+
+  postgresql:
+    extends:
+      file: ../docker-compose-definitions.yml
+      service: postgresql
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - /disk/pg_volume_node0_2.37B_indexes/pg_volume/_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pg-admin:
+    extends:
+      file: ../docker-compose-definitions.yml
+      service: pg-admin
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}

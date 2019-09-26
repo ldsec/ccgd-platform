@@ -1,0 +1,21 @@
+Simulation = "DeterministicTagging"
+Servers = 3
+Bf = 2
+Suite = "Ed25519"
+Rounds = 1
+RunWait = "24h"
+Bandwidth = 1000
+Delay = 10
+
+Hosts, NbrResponses, NbrGroupAttributes, NbrAggrAttributes, Proofs
+3, 15000, 1, 1, false
+3, 20000, 1, 1, false
+3, 40000, 1, 1, false
+3, 60000, 1, 1, false
+3, 80000, 1, 1, false
+3, 100000, 1, 1, false
+3, 120000, 1, 1, false
+3, 140000, 1, 1, false
+3, 160000, 1, 1, false
+3, 180000, 1, 1, false
+3, 200000, 1, 1, false

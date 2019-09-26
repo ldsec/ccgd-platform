@@ -5,7 +5,7 @@
 - clone the unlynx repo:
     git clone https://github.com/ldsec/unlynx.git
 
-- Change the nbrEncryptions variable to 200000 in the TestEncryptIntVector() (lib/crypto_test.go)
+- Change the nbrEncryptions variable in the TestEncryptIntVector() (lib/crypto_test.go)
 
 - Execute the test:
     cd lib

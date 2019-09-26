@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  icclusters:
+    image: medco/medco-cli-client:dev
+    dns: 128.178.15.7
+    environment:
+      - LOG_LEVEL=5
+      - UNLYNX_GROUP_FILE_PATH=/medco-configuration/group.toml
+      - UNLYNX_GROUP_FILE_IDX=0
+      - OIDC_CLIENT_ID=medco
+      - CLIENT_QUERY_TIMEOUT_SECONDS=3500
+      - PICSURE2_API_HOST=iccluster096.iccluster.epfl.ch
+      - PICSURE2_API_BASE_PATH=/pic-sure-api-2/PICSURE
+      - PICSURE2_API_SCHEME=https
+      - PICSURE2_RESOURCES=MEDCO_nebulaexp-12nodes_0_iccluster096.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_1_iccluster097.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_2_iccluster098.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_3_iccluster029.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_4_iccluster033.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_5_iccluster037.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_6_iccluster129.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_7_iccluster054.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_8_iccluster059.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_9_iccluster032.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_10_iccluster035.iccluster.epfl.ch,MEDCO_nebulaexp-12nodes_11_iccluster041.iccluster.epfl.ch
+      - OIDC_REQ_TOKEN_URL=https://iccluster096.iccluster.epfl.ch/auth/realms/master/protocol/openid-connect/token
+    volumes:
+      - ~/MedCo/tmp:/medco-configuration
+      - ./:/results
+    network_mode: host

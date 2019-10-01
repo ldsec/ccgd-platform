@@ -67,16 +67,6 @@ RUST_LOG=info cargo run -- run --node-config node_2_cfg.toml --db-path db2
 - Public endpoints: `127.0.0.1:8000` and `127:0.0.1:8001`
 - Private endpoints: `127.0.0.1:8002` and `127.0.0.1:8003`
 
-## Test
-
-Run unit tests.
-
-```console
-cargo test
-```
-
-Integration tests are found in the [integration_tests](integration_tests) directory.
-
 ## Read API
 
 ### Get data

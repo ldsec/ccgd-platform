@@ -1,10 +1,10 @@
-# Nebula Genomics Blockchain 
+# Nebula Genomics blockchain for consent management and data access controls
 
 This repo contains the code needed to spin-up an example blockchain and validator nodes, as well as the set of example API calls for this blockchain.  
 
 ## Install and run
 
-Run neb-chain nodes locally.
+Run Nebula Blockchain nodes locally.
 
 ### Prerequisites
 

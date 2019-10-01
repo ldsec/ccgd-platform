@@ -22,4 +22,4 @@ This subfolder contains the code needed to reproduce the experiments for data lo
 The used data are massive (in the order of tens of Terabytes), so we cannot host it online. In order to obtain them to reproduce the experiments, please contact juan.troncoso-pastoriza@epfl.ch.
 
 ## Consent Management and Access Control Tools
-TBC
+This code demonstrates a form of blockchain-based consent management. Also includes instructions on how to locally spin-up an example blockchain and validator nodes, as well as the set of example API calls for this blockchain. Please refer to the readme in this directory for full instructions.

@@ -20,6 +20,7 @@ By following these instructions, you will be able to deploy a test deployment of
 Note that this test deployment will contain only a small amount of demo data, as the actual data used for the experiments are massive (see the end note about it). 
 Those instructions are a targetted and summarized version of the MedCo technical documentation, please refer to it for more complete instructions.
 
+You will need Docker and Docker-Compose installed on your machine to pursue this test.
 
 ### Deploy MedCo Nodes
 Execute the following set of commands to download the 0.2.1-1 release of MedCo and deploy it:

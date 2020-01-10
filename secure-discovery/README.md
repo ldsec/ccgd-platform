@@ -36,7 +36,7 @@ docker-compose up -d
 ```
 
 Note that the first deployment initializes the database and that can take up to 10 minutes.
-Check the i2b2 logs with `docker-compose logs test-local-3nodes_i2b2-srv0_1` to inspect the status of the initialization.
+Check the i2b2 logs with `docker-compose logs i2b2-srv0` to inspect the status of the initialization.
 
 
 ### Configure Keycloak
@@ -52,21 +52,28 @@ Import the provided realm configuration into Keycloak. This will create the MedC
 
 
 #### Configure the MedCo OpenID Connect client
-In the Settings tab, fill Valid Redirect URIs with the value `http://localhost/glowing-bear`.
-In the same tab, fill Web Origins with + and save.
+- Go to the Clients menu and click on the `medco` client.
+- In the Settings tab, fill Valid Redirect URIs with the value `http://localhost/glowing-bear`.
+- In the same tab, fill Web Origins with + and save.
 
 
 #### Add a user and attribute permissions
-- Go to the configuration panel Users, click on Add user.
+- Go to the Users menu, click on Add user.
 - Fill the Username field, toggle to ON the Email Verified button and click Save.
-- In the next window, click on Credentials, enter twice the user’s password, toggle to OFF the Temporary button if desired and click Reset Password.
-- Go to the configuration panel Users, search for the user you want to give authorization to and click on Edit.
+- Go to the Credentials tab, enter twice the user’s password, toggle to OFF the Temporary button if desired and click Reset Password.
 - Go to the Role Mappings tab, and select medco in the Client Roles.
 - Add all the roles.
 
 
 ### Load MedCo Demo Data
-Execute the following commands to load data in the 3 nodes and restart the deployment.
+First download the data with the provided helper script:
+
+```bash
+cd ~/medco-deployment/resources/data
+bash download.sh
+```
+
+Then execute the following commands to load data in the 3 nodes and restart the deployment.
 
 ```bash
 cd ~/medco-deployment/compose-profiles/test-local-3nodes

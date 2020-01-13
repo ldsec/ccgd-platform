@@ -53,8 +53,8 @@ Import the provided realm configuration into Keycloak. This will create the MedC
 
 #### Configure the MedCo OpenID Connect client
 - Go to the Clients menu and click on the `medco` client.
-- In the Settings tab, fill Valid Redirect URIs with the value `http://localhost/glowing-bear`.
-- In the same tab, fill Web Origins with + and save.
+- In the Settings tab, replace the existing Valid Redirect URIs with the value `http://localhost/glowing-bear`.
+- In the same tab, fill Web Origins with `+` and save.
 
 
 #### Add a user and attribute permissions

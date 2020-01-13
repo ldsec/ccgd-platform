@@ -23,7 +23,7 @@ Execute simulation locally based on a specific profile (`.toml`)
 ./simul -platform localhost [-debug 1] {path to .toml}
 ```
 
-All the configuration for the experiments are in **this repository under** `runfiles\`
+All the configuration for the experiments are in the **ccgd-platform** under `secure-discovery/crypto-operations/deterministic re-encryption\runfiles\`
 
 A simple example:
 ```bash 

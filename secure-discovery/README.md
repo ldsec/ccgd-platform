@@ -12,7 +12,7 @@ In order to make a test deployment for yourself, you can follow the later instru
 This subfolder contains the code needed to replicate an existing i2b2 database and extend it to reach the scales tested in the article (up to 28 billion observations), the SQL scripts to insert these data in a running database (deployed with the aforementioned deployment profiles), the scripts to run the experiments, and the logs for the obtained results.
 ​
 ### Crypto Operations
-This subfolder contains the code needed to reproduce the experiments for data loading timings, including the local encryption time for an increasing number of variables, and the equality-preserving re-encryption time before an individual record is inserted in the database.
+This subfolder contains the code and instructions needed to reproduce the experiments for data loading timings, including the local encryption time for an increasing number of variables, and the equality-preserving re-encryption time before an individual record is inserted in the database.
 
 
 ## MedCo Test Deployment

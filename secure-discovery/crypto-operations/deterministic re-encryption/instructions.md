@@ -1,6 +1,6 @@
 # Deterministic re-encryption experiments 
 
-This experiment provides the execution time for the tagging of a set of X integers in your local machine. The configutation parameters are listed in the `runfiles/*.toml` files (one for each scenario with a different number of nodes and a fixed number of 200000 elemtents to tag). 
+This experiment provides the execution time for the tagging of a set of X integers in your local machine. The configutation parameters are listed in the `runfiles/*.toml` files (one for each scenario with a different number of nodes and a fixed number of 200,000 elements to tag). 
 
 If you want to build up your own experiment with a different number of nodes and/or elements to be tagged you can simply change the `Host` and `NbrResponses` variables in the config (`.toml`) file.
 

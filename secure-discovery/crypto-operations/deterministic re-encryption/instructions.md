@@ -1,5 +1,7 @@
 # Deterministic re-encryption experiments 
 
+This experiment provides the execution time for the encryption of a set of X integers (nbrEncryptions) in your local machine. This serves as a benchmark for the encryption of the query elements done by the MedCo/I2B2 client.
+
 ## Requirements 
 
 * Git

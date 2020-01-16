@@ -1,6 +1,17 @@
 # Deterministic re-encryption experiments 
 
-This experiment provides the execution time for the encryption of a set of X integers (nbrEncryptions) in your local machine. This serves as a benchmark for the encryption of the query elements done by the MedCo/I2B2 client.
+This experiment provides the execution time for the tagging of a set of X integers in your local machine. The configutation parameters are listed in the `runfiles/*.toml` files (one for each scenario with a different number of nodes and a fixed number of 200000 elemtents to tag). 
+
+If you want to build up your own experiment with a different number of nodes and/or elements to be tagged you can simply change the `Host` and `NbrResponses` variables in the config (`.toml`) file.
+
+```
+Hosts, NbrResponses, NbrGroupAttributes, NbrAggrAttributes, Proofs
+9, 200000, 1, 1, false
+```
+
+*Note - NbrGroupAttributes, NbrAggrAttributes, Proofs should be always set to 1, 1, false respectively. 
+
+This serves as a benchmark for the tagging of the query elements done when executing a query in MedCo.
 
 ## Requirements 
 

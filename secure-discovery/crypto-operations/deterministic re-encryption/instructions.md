@@ -2,7 +2,7 @@
 
 This experiment provides the execution time for the tagging of a set of X integers in your local machine. The configutation parameters are listed in the `runfiles/*.toml` files (one for each scenario with a different number of nodes and a fixed number of 200,000 elements to tag). 
 
-If you want to build up your own experiment with a different number of nodes and/or elements to be tagged you can simply change the `Host` and `NbrResponses` variables in the config (`.toml`) file.
+If you want to build up your own experiment with a different number of nodes and/or elements to be tagged you can simply change the `Hosts` and `NbrResponses` variables in the config (`.toml`) file.
 
 ```
 Hosts, NbrResponses, NbrGroupAttributes, NbrAggrAttributes, Proofs
@@ -11,7 +11,7 @@ Hosts, NbrResponses, NbrGroupAttributes, NbrAggrAttributes, Proofs
 
 **Note** - `NbrGroupAttributes`, `NbrAggrAttributes` and `Proofs` should be always set to 1, 1, false respectively. 
 
-This serves as a benchmark for the tagging of the query elements, which done when executing a query in MedCo.
+This serves as a benchmark for the tagging of the query elements that is done when executing a query in MedCo.
 
 ## Requirements 
 

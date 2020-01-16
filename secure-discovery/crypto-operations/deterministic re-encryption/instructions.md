@@ -9,7 +9,7 @@ Hosts, NbrResponses, NbrGroupAttributes, NbrAggrAttributes, Proofs
 9, 200000, 1, 1, false
 ```
 
-**Note** - `NbrGroupAttributes`, `NbrAggrAttributes` and `Proofs` should be always set to 1, 1, false respectively. 
+**Note** - `NbrGroupAttributes`, `NbrAggrAttributes` and `Proofs` should be always set to 1, 1, and false respectively. 
 
 This serves as a benchmark for the tagging of the query elements that is done when executing a query in MedCo.
 

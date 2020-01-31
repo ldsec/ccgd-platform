@@ -9,6 +9,7 @@ Run blockchain nodes locally.
 ### Prerequisites
 
 - [Rust](https://www.rust-lang.org/tools/install)
+- [Cargo](https://crates.io/)
 
 ### Launch script
 

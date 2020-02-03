@@ -1,6 +1,6 @@
 # Blockchain for consent management and data access controls
 
-This repo contains the code needed to spin-up an example blockchain and validator nodes, as well as the set of example API calls for this blockchain.  
+This repo contains the code needed to spin-up an example blockchain and validator nodes, as well as the set of example API calls for this blockchain.
 
 ## Install and run
 
@@ -21,13 +21,6 @@ This script launches four nodes.
 
 - Public endpoints: `127.0.0.1:8000` ... `127:0.0.1:8003`
 - Private endpoints: `127.0.0.1:8004` ... `127.0.0.1:8007`
-
-Nodes log at error level by default.
-Change the log level by passing in the `RUST_LOG` environment variable.
-
-```console
-RUST_LOG=info ./launch.sh
-```
 
 ### Manually
 

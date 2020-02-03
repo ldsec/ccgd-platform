@@ -2,6 +2,9 @@
 #
 # Configure and run neb-chain nodes locally
 
+# Log level
+export RUST_LOG=info
+
 # Number of nodes to run, fixed at 4 for now
 node_count=4
 

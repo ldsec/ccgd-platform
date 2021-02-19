@@ -1,6 +1,6 @@
 # Blockchain for consent management and data access controls
 
-This repo contains the code needed to spin-up an example blockchain and validator nodes, as well as the set of example API calls for this blockchain.
+This repo contains the code needed to spin-up blockchain and validator nodes, as well as the set of example API calls for this blockchain.
 
 ## Install and run
 

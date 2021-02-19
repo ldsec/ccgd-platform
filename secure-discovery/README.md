@@ -105,6 +105,67 @@ docker-compose up -d
 At this stage the MedCo deployment should be up and running. Access `http://localhost/glowing-bear` to test it with the previously configured credentials.
 
 
-## A Note about the Data
-The used data are massive (in the order of tens of Terabytes), so we cannot host it online. In order to obtain them to reproduce the experiments, please contact juan.troncoso-pastoriza@epfl.ch.
 
+## Data Generation
+The data used for some of the experiments are massive, in the order of tens of Terabytes, thus they are not directly shareable.
+As they are generated from an original real dataset, you will find here the instructions how to generate them.
+
+### Original Data
+The original data was obtained by combining several TCGA datasets available from [cBioPortal](https://www.cbioportal.org/).
+This combined dataset is hosted at [this address](https://github.com/ldsec/projects-data/tree/master/medco/datasets/genomic/tcga_cbio) and is comprised of two files:
+- clinical_data.csv
+- mutation_data.csv
+
+Note that when you execute as previously explained the download script `download.sh`, this data will be included.
+You will need to first perform the normal MedCo data loading with this dataset, i.e. use the previously shown commands for data loading and replace:
+-  `8_clinical_data.csv` by `clinical_data.csv` 
+-  `8_mutation_data.csv` by `mutation_data.csv` 
+
+### Data Replication
+Once you have the original dataset loaded in MedCo, you are ready to proceed with the replication.
+For this [some general information are available in the MedCo documentation](https://ldsec.gitbook.io/medco-documentation/developers/database), and here are the key steps:
+
+- To accomodate those large data, change some database settings and table definitions with the following:
+```sql
+-- structure
+ALTER TABLE i2b2demodata_i2b2.observation_fact
+    ALTER COLUMN instance_num TYPE bigint,
+    ALTER COLUMN text_search TYPE bigint;
+    
+-- settings
+ALTER SYSTEM SET maintenance_work_mem TO '32GB';
+SELECT pg_reload_conf();
+```
+
+- Run the duplication (with the method "2") with the following:
+```sql
+SELECT i2b2demodata_i2b2.obs_fact_duplication_method_2(1212);
+```
+This will give you a database replicated 1212 times, that includes approximately 50k patients and 9.5B records per node.
+Then simply copy this database over 2 other nodes to reach **150k patients and 28.5B records over 3 nodes**.
+
+### Data Reduction
+In order to distribute this data over more nodes (6, 9 and 12) while keeping the same total amount of data, this database needs to be reducted.
+- For 6 nodes, reduce to 4.75B records:
+```sql
+SELECT i2b2demodata_i2b2.obs_fact_reduction(4750000000);
+```
+- For 9 nodes, reduce to 3.15B records:
+```sql
+SELECT i2b2demodata_i2b2.obs_fact_reduction(3170000000);
+```
+- For 12 nodes, reduce to 2.37B records:
+```sql
+SELECT i2b2demodata_i2b2.obs_fact_reduction(2370000000);
+```
+
+Once reducted on one node, simply copy the database on the other nodes.
+
+### Regenerating Indexes
+After generating each version of the database, it is very important to re-generate the indexes of the i2b2 database.
+Due to the method used for the duplication and reduction, the indexes will not be kept up to date!
+Please also note that this step will be very long (e.g. up to 90 hours on a very powerful machine).
+The command to run is the following:
+```sql
+SELECT i2b2demodata_i2b2.obs_fact_indexes();
+```

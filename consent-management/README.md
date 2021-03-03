@@ -22,6 +22,20 @@ This script launches four nodes.
 - Public endpoints: `127.0.0.1:8000` ... `127:0.0.1:8003`
 - Private endpoints: `127.0.0.1:8004` ... `127.0.0.1:8007`
 
+If this fails due to a failure to generate a custom build for a dependency, try updating cargo lock:
+
+```console
+cargo clean
+cargo update
+```
+
+If this fails due to an IO error or because actix is "Opening too many files", it is likely because the OS' file descriptors limit is set very low (likely 256 on Mac OSX). To temporarily increase this limit on Mac:
+
+```console
+ulimit -n 2048 
+````
+Note: this wont persist, so if this resolves the issue, add to your bashrc.
+
 ### Manually
 
 An example of what the launch script does under the hood, but with only two nodes.

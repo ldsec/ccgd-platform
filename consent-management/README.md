@@ -4,7 +4,7 @@ This repo contains the code needed to spin-up blockchain and validator nodes, as
 
 ## Install and run
 
-Run blockchain nodes locally.
+Run blockchain nodes locally. The following steps for deployment are designed for a linux environment with sudo access. If you don't have access to a linux machine or VM, you can also easily deploy on GCP.
 
 ### Prerequisites
 
